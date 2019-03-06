@@ -1,0 +1,192 @@
+<div class="products-container" *ngIf="!productSelected && !productNew">
+  <mat-grid-list cols="3">
+    <mat-grid-tile *ngFor="let item of productData">
+      <mat-card class="product-card" (click)="selectProduct(item)">
+        <mat-card-header>
+          <mat-card-title> {{item['pname'] | uppercase}}</mat-card-title>
+          <mat-card-subtitle> {{item['Brand']['bname']}}</mat-card-subtitle>
+        </mat-card-header>
+        <img class="cardimg" mat-card-image src="http://localhost:8080/api/products/img/{{item['imgPath1']}}">
+        <mat-card-content>
+          <p>
+            {{item['description']}}
+          </p>
+        </mat-card-content>
+        <b>Prix : {{item['price']}} Da</b>
+        <p></p>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="product-card" (click)="addNew()">
+        <img class="cardimg" style="margin-top:15px;" mat-card-image src="assets/addnew.png" width="20">
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<div class="product-container" *ngIf="productSelected">
+
+  <div class="row">
+    <mat-grid-list class="imglist" cols="3" rowHeight="2:1">
+      <mat-grid-tile class="imgtile"><img id="img1" src="http://localhost:8080/api/products/img/{{product['imgPath1']}}"
+          alt="your image" width="300" /></mat-grid-tile>
+      <mat-grid-tile class="imgtile"><img id="img2" src="http://localhost:8080/api/products/img/{{product['imgPath2']}}"
+          alt="your image" width="300" /></mat-grid-tile>
+      <mat-grid-tile class="imgtile"><img id="img3" src="http://localhost:8080/api/products/img/{{product['imgPath3']}}"
+          alt="your image" width="300" /></mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <div class="row">
+    <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput multiple />
+    <button mat-raised-button color="#897c5f" (click)="fileInput.click()">Modifier les images </button>
+  </div>
+
+
+  <mat-form-field floatLabel="always">
+    <mat-label>Nom</mat-label>
+    <input matInput placeholder="Nom" type="text" [formControl]="productName">
+  </mat-form-field>
+
+  <mat-form-field floatLabel="always">
+    <mat-label>Marque</mat-label>
+    <span style="font-weight: bold;"> Actuelle : {{product['Brand']['bname']}} </span>
+    <br> <br>
+    <mat-select placeholder="Marque" [formControl]="productIdBrand">
+      <mat-option *ngFor="let item of brandData" value="{{item['id']}}">{{item['bname']}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field floatLabel="always">
+    <mat-label>Prix</mat-label>
+    <input matInput type="number" [formControl]="productPrice">
+  </mat-form-field>
+
+  <mat-form-field floatLabel="always">
+    <mat-label>Forme</mat-label>
+    <mat-select placeholder="Forme" [formControl]="productForme">
+      <mat-option value="Rondes">Rondes</mat-option>
+      <mat-option value="Carrées">Carrées</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field floatLabel="always">
+    <mat-label>Description</mat-label>
+    <textarea matInput rows="4" placeholder="Description" [formControl]="productDescription"></textarea>
+  </mat-form-field>
+
+
+  <div class="row">
+    <button mat-raised-button (click)="backProduct()">Retour</button>
+    <button mat-raised-button color="#F577c4c" (click)="modifyproduct()">Modifier</button>
+    <button mat-raised-button color="warn" (click)="deleteProduct(product['id'])">Supprimer</button>
+  </div>
+</div>
+
+
+
+<div class="product-container" *ngIf="productNew">
+
+  <div class="row">
+    <mat-grid-list class="imglist" cols="3" rowHeight="2:1">
+      <mat-grid-tile><img id="img1" src="assets/noimg.png" alt="your image" width="300" /></mat-grid-tile>
+      <mat-grid-tile><img id="img2" src="assets/noimg.png" alt="your image" width="300" /></mat-grid-tile>
+      <mat-grid-tile><img id="img3" src="assets/noimg.png" alt="your image" width="300" /></mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <div class="row">
+    <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput multiple />
+    <button mat-raised-button (click)="fileInput.click()">Ajoutez les images</button>
+  </div>
+
+
+        <mat-form-field floatLabel="always">
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder="Nom" [formControl]="productName">
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+          <mat-label>Marque</mat-label>
+          <mat-select placeholder="Marque" [formControl]="productIdBrand">
+            <mat-option *ngFor="let item of brandData" value="{{item['id']}}">{{item['bname']}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+          <mat-label>Prix</mat-label>
+          <input matInput type="number" placeholder="Prix" [formControl]="productPrice">
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+          <mat-label>Forme</mat-label>
+          <mat-select placeholder="Forme" [formControl]="productForme">
+            <mat-option value="Rondes">Rondes</mat-option>
+            <mat-option value="Carrées">Carrées</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field floatLabel="always">
+            <mat-label>Age</mat-label>
+            <input matInput type="number" placeholder="Age" [formControl]="productAge">
+          </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+          <mat-label>Sexe</mat-label>
+          <mat-select placeholder="Sexe" [formControl]="productGender">
+            <mat-option value="Hommes">Hommes</mat-option>
+            <mat-option value="Femmes">Femmes</mat-option>
+            <mat-option value="Unisexe">Unisexe</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+          <mat-label>Taille</mat-label>
+          <mat-select placeholder="Taille" [formControl]="productSize">
+            <mat-option value="Grande">Grande</mat-option>
+            <mat-option value="Moyenne">Moyenne</mat-option>
+            <mat-option value="Petite">Petite</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+          <mat-label>Couleur</mat-label>
+          <mat-select placeholder="Couleur" [formControl]="productColor">
+            <mat-option value="Metal">Metal</mat-option>
+            <mat-option value="Noir">Noir</mat-option>
+            <mat-option value="Blanche">Blanche</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+          <mat-label>Type</mat-label>
+          <mat-select placeholder="Type" [formControl]="productRim">
+              <mat-option value="Full-Rim">Full-Rim</mat-option>
+            <mat-option value="Rimless">Rimless</mat-option>
+            <mat-option value="Semi-Rimless">Semi-Rimless</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field floatLabel="always">
+          <mat-label>Matériel</mat-label>
+          <mat-select placeholder="Matériel" [formControl]="productMaterial">
+            <mat-option value="Acelate">Acelate</mat-option>
+            <mat-option value="Plastic">Plastic</mat-option>
+            <mat-option value="Metal">Metal</mat-option>
+            <mat-option value="Titanium">Titanium</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+  <mat-form-field floatLabel="always">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="4" placeholder="Description" [formControl]="productDescription"></textarea>
+    </mat-form-field>
+
+
+  <div class="row">
+    <button mat-raised-button (click)="backProduct()">Annuler</button>
+    <button mat-raised-button (click)="createProduct()">Ajouter</button>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+  .sidenav {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgb(248, 238, 227);
+  }
+
+  .product-container {
+    display: block;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .product-container > * {
+    width: 90%;
+  }
+
+  button{
+    margin-right: 25px;
+    margin-left: 25px;
+  }
+  
+  
+  a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  a:hover {
+    color: #f1f1f1;
+  }
+
+
+  .logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .brandbutton{
+    width: 200px;
+    background-color: #e6debf;
+  }
+
+  .allbrandbutton{
+    width: 200px;
+    background-color: #726e5e;
+  }
+
+  .addbrandbutton{
+    width: 200px;
+    background-color: #adca87;
+
+  }
+
+  .addbrand{
+   
+  }
+
+  .allbrand{
+  
+  }
+
+  .brandb{
+  
+  }

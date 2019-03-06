@@ -1,0 +1,45 @@
+
+
+<mat-sidenav-container class="sidenav">
+    <mat-sidenav mode="side" opened disableClose>
+      <div ><img class="logo" src="assets/logo.png" width="200" /></div>
+
+        <mat-divider></mat-divider>
+        <div class="branddiv">
+        <mat-list  role="list">
+            <mat-list-item class="addbrand" role="listitem" ><button mat-stroked-button class="addbrandbutton" (click)="addBrandForm()">Ajouter une marque</button></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="allbrand" role="listitem"><button mat-stroked-button class="allbrandbutton" (click)="getAllProduct()">Toutes les montures</button></mat-list-item>
+            <mat-divider></mat-divider>
+            <div >
+            <mat-list-item class="brandb" *ngFor="let item of brandData" role="listitem">  <button mat-stroked-button class="brandbutton" (click)="getAllBrandProduct(item['id'])">{{item['bname'] | uppercase}}</button></mat-list-item>
+        </div>
+        <br><br><br>
+      </mat-list>
+    </div>
+
+
+    </mat-sidenav>
+    <mat-sidenav-content *ngIf="!brandNew">
+      <app-product  [brandData]="brandData" [productData]="productData" [productSelected]="productSelected" [productNew]="productNew" (refresh)="onRefresh($event)"></app-product>
+    </mat-sidenav-content>
+
+    <mat-sidenav-content *ngIf="brandNew">
+      <div class="product-container" >
+        <h1>Ajout d'une marque</h1>
+        <br><br><br>
+        <mat-form-field floatLabel="always">
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder="Nom" [formControl]="brandName">
+        </mat-form-field>
+        <mat-form-field floatLabel="always">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="4" placeholder="Description" [formControl]="brandDescription"></textarea>
+        </mat-form-field>
+        <div class="row">
+        <button mat-raised-button (click)="backProduct()">Annuler</button>
+        <button mat-raised-button (click)="addBrand()">Ajouter</button>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

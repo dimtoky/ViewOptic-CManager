@@ -1,0 +1,34 @@
+.cardimg{
+    width: 200px;
+}
+
+.product-card{
+    text-align: center;
+    width: 250px;
+}
+
+.product-container {
+    display: block;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .product-container > * {
+    width: 90%;
+  }
+
+  button{
+    margin-right: 25px;
+    margin-left: 25px;
+  }
+
+  .imglist{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 10%;
+  }
+
+  .inputlist > mat-form-field{
+    display: block;
+    width: 300px;
+  }
